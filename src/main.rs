@@ -216,9 +216,153 @@ println!("Okay then {}", my_string);
             my_nombolo = 100;           
             
         }
-        println!("{}", my_nombolo)
+        println!("{}", my_nombolo);
     //}
 
+// Collection types - ARRAYS
+
+    //fn main() {
+        let my_array = ["a"; 10];
+        println!("{:?}", my_array);
+    //}
+
+// Indexing an Array
+
+    //fn main() {
+        let my_numbers = [1, 13, -34];
+        println!("{}", my_numbers[1]);
+    //}
+
+// Slicing an ARRAY with '&'
+
+    //fn main() {
+        let array_of_ten = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+        let three_to_five = &array_of_ten[2..5];
+        let start_at_two = &array_of_ten[1..];
+        let end_at_five = &array_of_ten[..5];
+        let everything = &array_of_ten[..];
+
+        println!("Three to five: {:?}, start at two: {:?}, end at five: {:?}, everything: {:?}", three_to_five, start_at_two, end_at_five, everything );
+    //}
+
+ // Vectors 
+        
+    //fn main() {
+    let name1 = String::from("Windy");
+    let name2 = String::from("Gomesi");
+
+    let mut my_vec: Vec<String> = Vec::new();
+    // my_vec.push(name1);
+    // my_vec.push(name2);
+
+    //}
+
+// Slicing vectors
+
+    //fn main() {
+    let vec_of_ten = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // Everything is the same as the above except we added vec!
+    let three_to_five = &vec_of_ten[2..5];
+    let start_at_two = &vec_of_ten[1..];
+    let end_at_five = &vec_of_ten[..5];
+    let everything =&vec_of_ten[..];
+
+    println!("Three to five: {:?},
+start_at_two: {:?}
+end_at_five: {:?}
+everything: {:?}", three_to_five, start_at_two, end_at_five, everything);
+//}
+
+// Adding CAPACITY to a Vector
+
+// fn main() {
+    let mut numm_vec = Vec::new();
+    println!("{}", numm_vec.capacity()); // 0 elements: prints 0
+    numm_vec.push('a'); // add one character
+    println!("{}", numm_vec.capacity()); // 1 element: prints 4. Vecs with 1 item always starts with capacity of 4
+    numm_vec.push('a'); // add one more
+    numm_vec.push('a'); // add one more
+    numm_vec.push('a'); // add one more
+    println!("{}", numm_vec.capacity()); // 4 elements: still prints 4
+    numm_vec.push('a'); // add one more
+    println!("{}", numm_vec.capacity()); // pints 8. We have 5 elements, but it doubles from 4 to 8 to create space.
+//}
+
+// HOW to make this Vector FASTER?
+
+//fn main() {
+    let mut numm_vecc = Vec::with_capacity(8); // give it a capacity of 8
+    println!("{}",numm_vecc.capacity()); // prints 8
+    numm_vecc.push('a'); // add one more
+    println!("{}", numm_vecc.capacity()); // prints 8
+    numm_vecc.push('a'); // add one more
+    println!("{}", numm_vecc.capacity()); // prints 8
+    numm_vecc.push('a'); // add one more
+    numm_vecc.push('a'); // add one more // Now we have 5 elements
+    println!("{}", numm_vecc.capacity()); // Still 8
+
+
+// This vector has 0 reallocations, which is better. So if you think you know how many elements you need, 
+// you can use Vec::with_capacity() to make it faster.
+
+//You remember that you can use .into() to make a &str into a String. 
+// You can also use it to make an array into a Vec. You have to tell .into() that you want a Vec, but you don't have to choose the type of Vec. If you don't want to choose, you can write Vec<_>.    
+
+// EXAMPLE:
+
+// fn main() {
+    let me_vec: Vec<u8> = [1,2, 3].into();
+    let me_vec2: Vec<_> = [9, 0, 10].into();
+
+//}
+
+//}
+
+// Tuples 
+
+//fn main() {
+    let random_tuple = ("Nali igama lomntu", 8, vec!['a'], 'b', [8, 10, 100], 7.1 );
+    println!(
+        "Inside the tuple is:\n\
+First item:{:?}\n\
+Second item: {:?}\n\
+Third item: {:?}\n\
+Fourth item: {:?}\n\
+Fifth item: {:?}\n\
+Sixth item: {:?}",
+        random_tuple.0,
+        random_tuple.1,
+        random_tuple.2,
+        random_tuple.3,
+        random_tuple.4,
+        random_tuple.5, 
+
+    ); 
+
+// This tuple is of type (&str, i32, Vec<char>, char, [i32; 3], f64)
+
+// Using a tuple to create multiple variables
+
+//fn main() {
+    let str_vec = vec!["one", "two", "three"];
+
+    let (a, b, c) = (str_vec[0], str_vec[1], str_vec[2]); // call them a, b, and c
+    println!("{:?}", b); 
+    
+    // this is called 'destructuring'
+//}
+
+//}
+
+// Destructuring WITHOUT ALL the variables by using '_'.
+
+//fn main() {
+    let str_vecc = vec!["one", "two", "three"];
+
+    let (_, _, variables) = (str_vecc[0], str_vecc[1], str_vecc[2]);
+//}
+ 
 
 
 
