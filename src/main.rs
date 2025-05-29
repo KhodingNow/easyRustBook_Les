@@ -195,7 +195,7 @@ println!("Okay then {}", my_string);
             my_thing.push_str("Nantso ke inkathazo");
             get_length(my_thing.clone());
     //    }
-    }
+}
 
 // Variables WITHOUT values
 
@@ -252,7 +252,7 @@ println!("Okay then {}", my_string);
     let name1 = String::from("Windy");
     let name2 = String::from("Gomesi");
 
-    let mut my_vec: Vec<String> = Vec::new();
+    //let mut my_vec: Vec<String> = Vec::new();
     // my_vec.push(name1);
     // my_vec.push(name2);
 
@@ -362,8 +362,158 @@ Sixth item: {:?}",
 
     let (_, _, variables) = (str_vecc[0], str_vecc[1], str_vecc[2]);
 //}
- 
+
+// 25. Structs
+
+struct Colour(u8, u8, u8);
+//fn main() {
+    let the_colour = Colour(50, 0, 50); // Make an RGB colour
+    println!("The second part of the colour is {}", the_colour.1);
+        
+//}
+
+struct Khala(u8, u8, u8);
+
+struct SizeAndKhala {
+    size: u32,
+    colour: Khala, // we put it in the newly named struct
+}
+
+//fn main() {
+    let me_khala = Khala(50, 0, 50);
+
+    let size_and_Klr = SizeAndKhala {
+        size: 150,
+        colour: me_khala
+    };
+//}
+
+#[derive(Debug)]
+struct Cowntry {
+    population: u32,
+    capital: String,
+    leader_name: String
+}
+
+//fn main() {
+    let population = 700_111;
+    let capital = String::from("Emnyango");
+    let leader_name = String::from("Bantu BonkeZonke");
+
+    let kalanga = Cowntry {
+        population,
+        capital,
+        leader_name,       
+
+    };
+
+    println!("please print {:?}", kalanga);
+//}
+
+// Enums, looks like Structs, but are different
+// The diff is: you use a struct when you want to do one thing AND another thing
+// You use an enum when you want one thing OR another thing
+// Structs are for MANY THINGS together, while enums are for MANY CHOICES together
+
+enum ThingsInTheSky {
+    Sun,
+    Stars,
+}
+
+//fn main () { an enum bcs you see the Sun OR the Stars - have to choose one
+
+//}
+fn create_skystate(time: i32) -> ThingsInTheSky {
+    match time {
+        6..=18 => ThingsInTheSky::Sun, // btwn 6 and 18 hours we can see the Sun
+        _ => ThingsInTheSky::Stars, // Otherwise, we see the Stars
+    }
+} // With this function, we can match against the two choices in ThingsInTheSky.
+fn check_skystate(state: &ThingsInTheSky) {
+    match state {
+        ThingsInTheSky::Sun => println!("I can see the Sun"),
+        ThingsInTheSky::Stars =>println!("I can see the Stars")
+    }
+}
+//fn main() {
+    let time = 8; // it's 8 o'clock
+    let skystate = create_skystate(time); // create_skaystate returns a ThingsInTheSky
+    check_skystate(&skystate); // Give it a reference so it can read the variable skystate
+//}
+
+// Implementing Structs and enums
+
+//- This is where you can start to give structs and enums some real power. To call functions on a struct or an enum, use an 'impl' block. These functions are called 'METHODS'
+//- Methods come in 2 kinds: 
+//* Methods: these take 'self'(or '&self' or '&mut self'). Regular methods use a '.' (a dot). '.clone()' is an example of a regular method.
+//* Associated functions (known as 'static' methods in some langs): these do not take 'self'. associated means "related to". They are written differently, using "::". String::from() is an associated function, 
+//so is Vec::new(). YOu see associated functions most often used to create new variables.
+
+//- For a new struct or enum, you neeed to give it DEBUG if you want to use '{:?}' to print.
+//- If you write '#[derive(Debug)]' above the struct or enum then you can print it with "{:?}". 
+//- These messages with "#[]" are called attributes. You can sometimes use them to tell the compiler to to give your struct an ability like Debug.
+//- There are many attributes - derive is the most common.
 
 
+
+#[derive(Debug)]
+struct Animal {
+    age: u8,
+    animal_type: AnimalType,
+}
+
+#[derive(Debug)]
+enum AnimalType {
+    Cat,
+    Rabit,
+}
+
+impl Animal {
+    fn new() -> Self {
+        // Self means Animal.
+        // You can also write Animal instead of Self
+
+        Self {
+        // When we write Animal::new(), we always get a cat that is 10 yo
+        age: 10,
+        animal_type: AnimalType::Cat,
+        }    
+    }
+
+    fn change_to_rabit(&mut self) { // bcs we are inside Animal, &mut self means &mut Animal
+                                    // use .change_to_rabit() to change the cat to rabit
+                                    // with &mut self, we can change it
+        println!("Changing animal to rabit");
+        self.animal_type = AnimalType::Rabit;
+    }
+
+    fn change_to_cat(&mut self) {
+        // use .change_to_cat() to change from rabit to cat
+        // with &mut self we can change it
+        println!("Changing animal to cat");
+        self.animal_type = AnimalType::Cat;       
+    }
+
+    fn check_type(&self) {
+        // we want to read self
+
+        match self.animal_type {
+            AnimalType::Cat => println!("The animal is a cat"),
+            AnimalType::Rabit => println!("The animal is a rabit"),
+        }
+    }
+}
+
+
+
+//fn main() {
+    let mut new_animal = Animal::new(); // Associated function to create a new animal
+                                        // it is a cat, 10 yrs old
+    new_animal.check_type();
+    new_animal.change_to_rabit();
+    new_animal.check_type();
+    new_animal.change_to_cat();
+    new_animal.check_type(); 
+//}
 
 }
